@@ -4,6 +4,6 @@ COPY . .
 RUN mvn clean package -Pprod -DskipTests
 
 # Runtime Stage
-FROM adoptopenjdk:17-jdk-slim
+FROM docker pull adoptopenjdk
 COPY --from=build /target/DogsManagementSystem-0.0.1-SNAPSHOT.jar DogsManagementSystem.jar
 CMD ["java", "-jar", "DogsManagementSystem.jar"]

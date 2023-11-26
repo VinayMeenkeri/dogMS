@@ -1,9 +1,8 @@
-# Build Stage
-FROM maven:3.8.2-openjdk-17 AS build
-COPY . .
-RUN mvn clean package -Pprod -DskipTests
+# Use the AdoptOpenJDK base image
+FROM adoptopenjdk
 
-# Runtime Stage
-FROM docker pull adoptopenjdk
+# Copy the JAR file from the build stage
 COPY --from=build /target/DogsManagementSystem-0.0.1-SNAPSHOT.jar DogsManagementSystem.jar
+
+# Set the command to run the application
 CMD ["java", "-jar", "DogsManagementSystem.jar"]
